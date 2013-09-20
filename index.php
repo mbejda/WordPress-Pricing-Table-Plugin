@@ -171,8 +171,6 @@ $key = 'pricing_table';
 
         } else { // If the custom field doesn't have a value
             add_post_meta($post->ID, $key, $value);
-            echo "add";
-            die();
         }
         if(!$value) delete_post_meta($post->ID, $key); // 
 
@@ -182,7 +180,31 @@ $key = 'pricing_table';
 
 }
 
+function pricing_table( $atts ) {
 
+
+$args = array(
+	'post_type' => 'pacakge'
+);
+$query = new WP_Query( $args );
+if($query->has_posts())
+{
+	while($query->has_posts())
+	{
+	$query->the_post();
+		echo '<li>' . get_the_title() . '</li>';
+
+
+	}
+}
+
+
+
+
+
+
+}
+add_shortcode( 'pricing_table', 'pricing_table' );
 
 
 // Hook into the 'init' action
